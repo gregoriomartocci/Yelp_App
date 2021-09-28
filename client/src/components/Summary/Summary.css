@@ -1,0 +1,31 @@
+.summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 60%;
+}
+
+.search-summary {
+  display: flex;
+}
+
+.search-summary-right {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.search-summary-term {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.search-summary-location {
+  margin-left: 5px;
+  font-size: 14px;
+}
+
+.search-summary-result {
+  font-size: 13px;
+  margin: 15px 0;
+}
