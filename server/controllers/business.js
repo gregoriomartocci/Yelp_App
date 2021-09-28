@@ -4,13 +4,26 @@ require("dotenv").config();
 const { REACT_APP_BASE_URL, REACT_APP_API_KEY } = process.env;
 
 const search = async (req, res) => {
-  const { term, location, sort_by } = req.query;
-  console.log(term, location, sort_by);
+  let { term, location, sort_by } = req.query;
+
+  if (term == "null" || !term) {
+    term = "Burguers";
+  }
+
+  if (location == "null" || !location) {
+    location = "New York";
+  }
+
+  if (sort_by == "null" || !sort_by) {
+    sort_by = "rating";
+  }
 
   try {
     const { data } = await axios.get(
-      `${REACT_APP_BASE_URL}/businesses/search?term=${term}&location=${location}${
-        sort_by && `&sort_by=${sort_by}`
+      `${REACT_APP_BASE_URL}/businesses/search?term=${encodeURI(
+        term
+      )}&location=${encodeURI(location)}${
+        sort_by && sort_by != null && `&sort_by=${sort_by}`
       }`,
       {
         headers: {

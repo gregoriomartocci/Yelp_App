@@ -13,9 +13,21 @@ function Main() {
   const [error, setError] = useState();
   const { location } = useReactRouter();
   const params = new URLSearchParams(location.search);
-  const term = params.get("term");
-  const locationParam = params.get("location");
-  const sort = params.get("sort_by");
+  let term = params.get("term");
+  let locationParam = params.get("location");
+  let sort = params.get("sort_by");
+
+  if (term === null || !term) {
+    term = "Burguers";
+  }
+
+  if (locationParam === null || !locationParam) {
+    locationParam = "New York";
+  }
+
+  if (sort === null || !sort) {
+    sort = "rating";
+  }
 
   const [
     businesses,

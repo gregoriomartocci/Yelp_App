@@ -20,11 +20,9 @@ function Summary({
   businesses,
   sort,
 }) {
-  
   const [sortSelect, setSortSelect] = useState([]);
   const { history } = useReactRouter();
   useEffect(() => {
-
     const encondedTerm = encodeURI(term);
     const encondedLocation = encodeURI(location);
     const encondedSort = encodeURI(sortSelect[0]?.value);
@@ -38,9 +36,6 @@ function Summary({
         );
       } else {
         setBusinesses(lowest_rated(businesses));
-        history.push(
-          `/search?term=${encondedTerm}&location=${encondedLocation}&sort_by=${encondedSort}`
-        );
       }
     }
     return () => {};
@@ -61,7 +56,9 @@ function Summary({
       <div className="search-summary-left">
         <div className="search-summary">
           <span className="search-summary-term">{term}</span>
-          <span className="search-summary-location">{location}</span>
+          <span className="search-summary-location">
+            {location !== "null" && location}
+          </span>
         </div>
         <div className="search-summary-result">{result}</div>
       </div>

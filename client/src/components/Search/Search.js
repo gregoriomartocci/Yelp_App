@@ -4,36 +4,38 @@ import { BiSearch } from "react-icons/bi";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import useReactRouter from "use-react-router";
 
-function Search({ setLoading, setSearchParams }) {
+function Search({ setSearchParams }) {
   const { history } = useReactRouter();
   const { location } = useReactRouter();
   const params = new URLSearchParams(location.search);
-  const term = params.get("term");
-  const locationParam = params.get("location");
-  const sort = params.get("sort_by");
+  let term = params.get("term");
+  let locationParam = params.get("location");
+  let sort = params.get("sort_by");
+
+  if (term == null || !term) {
+    term = "Burguers";
+  }
+
+  if (locationParam == null || !locationParam) {
+    locationParam = "New York";
+  }
+
+  if (sort == null || !sort) {
+    sort = "rating";
+  }
 
   const [input, setInput] = useState({
-    term: term || "",
-    location: locationParam || "",
+    term: "",
+    location: "",
   });
 
-  useEffect(() => {
-    setInput({
-      term: term,
-      location: locationParam,
-    });
-    return () => {};
-  }, [term, locationParam]);
-
   const search = async () => {
-    setLoading(true);
-    setLoading(false);
     const encondedTerm = encodeURI(input.term);
     const encondedLocation = encodeURI(input.location);
     setSearchParams({
-      term: input.term,
-      location: input.location,
-      sort_by: sort,
+      term: input.term || "burguer",
+      location: input.location || "new york",
+      sort_by: sort || "rating",
     });
     history.push(
       `/search?term=${encondedTerm}&location=${encondedLocation}&sort_by=${sort}`
