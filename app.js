@@ -5,6 +5,10 @@ const PORT = process.env.PORT || 3001;
 const path = require("path");
 const routes = require("./routes/index.js");
 
+if (!process.env.NODE_ENV === "dev") {
+}
+
+app.use(express.static(path.join(__dirname, "client/build")));
 app.use(cors());
 
 app.use((req, res, next) => {
@@ -20,9 +24,9 @@ app.use((req, res, next) => {
 
 app.use("/", routes);
 
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "client/build/index.html"));
-// });
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client/build/index.html"));
+});
 
 app.listen(PORT, () => {
   console.log(`listening at ${PORT}`); // eslint-disable-line no-console
